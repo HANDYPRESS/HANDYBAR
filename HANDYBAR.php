@@ -41,6 +41,20 @@ function __construct() {
 	//Init plugin
 	add_action( 'init', array( $this, 'init' ), 999999 );
 
+	//Add user's twitter username
+	add_filter('user_contactmethods', array( $this, 'add_field') );
+
+	//
+	add_action( 'admin_enqueue_scripts', array( $this, 'adminbar_admin' ), 999999 );
+
+	//
+	add_action( 'wp_enqueue_scripts', array( $this, 'adminbar_site' ), 999999 );
+
+	//
+	add_filter( 'body_class', array( $this, 'body_class'), 10, 2 );
+
+
+
 	//textdomain
 	add_action( 'init', array( $this, 'textDomain' ), 999999 );
 
@@ -64,16 +78,75 @@ function __construct() {
 **/
 public function init(){
 
-	add_action( 'admin_footer', array( $this, 'adminbar' ), 99999999999999 );
+}
+
+/**
+*
+* body_class
+*
+* @desc remove front end body class 'admin-bar' to prevent extra admin bar style from theme (e.g. style.css)
+*
+**/
+public function body_class( $wp_classes, $extra_classes ) {
+
+	$arr_id = array_search('admin-bar',$wp_classes);
+
+	unset( $wp_classes[$arr_id] );
+
+	global $current_user;
+  //$user = get_currentuserinfo();
+
+	$wp_classes[] = 'toolbar-' . get_user_meta($current_user->ID, 'toolbar_position',true);
+	//HANDYLOG('current_user',get_user_meta($current_user->ID, 'toolbar_position',true) );
+	return $wp_classes;
 
 }
 
-public function adminbar() {
+/**
+*
+* adminbar_admin
+*
+* @desc
+*
+**/
+public function adminbar_admin() {
 
-	wp_enqueue_style( 'HANDYPRESS_HANDYBAR', HANDYBAR_URL . '/css/HANDYBAR.css', false, false, 'screen' );
+	if ( is_admin_bar_showing() ) {
+		wp_enqueue_style( 'HANDYPRESS_HANDYBAR_ADMIN', HANDYBAR_URL . 'css/HANDYBAR-ADMIN.css', array( 'admin-bar' ), false, 'all' );
+	}
 
 }
 
+/**
+*
+* adminbar_site
+*
+* @desc
+*
+**/
+public function adminbar_site() {
+
+	if ( is_admin_bar_showing() ) {
+		wp_enqueue_style( 'HANDYPRESS_HANDYBAR_SITE', HANDYBAR_URL . 'css/HANDYBAR-SITE.css', array( 'admin-bar' ), false, 'all' );
+	}
+
+}
+
+/**
+*
+* add_twitter_username_field
+*
+* @desc add twitter username in user settings if not exist.
+*
+**/
+public function add_field( $profile_fields ) {
+
+	$profile_fields['toolbar_tiny'] = 'Tiny Toolbar';
+	$profile_fields['toolbar_position'] = 'Toolbar position';
+
+	return $profile_fields;
+
+}
 
 /**
 **

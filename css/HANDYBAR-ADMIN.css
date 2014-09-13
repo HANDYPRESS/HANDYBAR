@@ -2,6 +2,9 @@
 html.wp-toolbar {
 padding-top: 0px!important;
 }
+body.admin-bar {
+    padding-top: 0px!important;
+}
 #wpadminbar{
 	position:relative;
 }
