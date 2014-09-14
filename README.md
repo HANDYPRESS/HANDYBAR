@@ -7,6 +7,6 @@ A very little plugin to display the Wordpress Admin Bar at the top of the scroll
 
 And a small overflow widget for the site view.
 
-![HANDYBAR-SITE](ScreenShot1.png)
+![HANDYBAR-SITE](ScreenShot1.gif)
 
 in dev.
