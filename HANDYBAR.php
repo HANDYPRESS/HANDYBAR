@@ -253,6 +253,7 @@ public function update( ){
 
 	if( get_option( 'HANDYBAR_plugin_version' ) !== $plugin_version ) {
 
+		update_user_meta( $user_id, 'toolbar_tiny', "checked" );
 
 		update_option( 'HANDYBAR_plugin_version', $plugin_version );
 
