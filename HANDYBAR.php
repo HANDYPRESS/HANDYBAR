@@ -247,13 +247,15 @@ public function activate( $network_wide ) {
 *
 *
 **/
-public function update( ){
+public function update(){
 
+	global $current_user;
+	
 	$plugin_version = '0.1.0';
 
 	if( get_option( 'HANDYBAR_plugin_version' ) !== $plugin_version ) {
 
-		update_user_meta( $user_id, 'toolbar_tiny', "checked" );
+		add_user_meta( $current_user->ID, 'toolbar_tiny', "checked" );
 
 		update_option( 'HANDYBAR_plugin_version', $plugin_version );
 
