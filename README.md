@@ -3,10 +3,10 @@ HANDYBAR - WordPress Plugin
 
 A very little plugin to display the Wordpress Admin Bar at the top of the scrolling page (not fixed) for the admin view.
 
-![HANDYBAR-ADMIN](ScreenShot.png)
+![HANDYBAR-ADMIN](screenshot.gif)
 
 And a small overflow widget for the site view.
 
-![HANDYBAR-SITE](ScreenShot1.gif)
+![HANDYBAR-SITE](screenshot1.gif)
 
 in dev.
