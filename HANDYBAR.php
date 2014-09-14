@@ -17,8 +17,15 @@ define( 'HANDYBAR_FILE', __FILE__ );
 define( 'HANDYBAR_DIR', plugin_dir_path( HANDYBAR_FILE ) );
 define( 'HANDYBAR_URL', plugin_dir_url( HANDYBAR_FILE ) );
 
+/**
+*
+* REQUIRE CLASS
+*
+**/
+if ( !class_exists('HANDYLOG')) {
+require_once( HANDYBAR_DIR . 'inc/simple_html_dom.php' );
+}
 
-require_once( HANDYBAR_DIR . 'simple_html_dom.php' );
 
 /**
 *
