@@ -1,34 +1,39 @@
 
-html.wp-toolbar {
-padding-top: 0px!important;
+@media screen and (min-width:782px){
+
+  html.wp-toolbar,
+  body.admin-bar {
+    padding-top: 0px;
+  }
+
+  #wpadminbar{
+    position:relative;
+    z-index:1;
+    width:inherit;
+    margin-right: 20px;
+    right: 20px;
+  }
+
+  #wp-toolbar{
+  	position:relative;
+  	border-bottom: solid 1px #DDD;
+  	display:block;
+  	height:32px;
+  }
+
+  #contextual-help-link-wrap{
+  	margin-right:6px;
+  }
+
+  #adminmenu{
+  	margin-top:0px;
+  }
+
 }
-body.admin-bar {
-    padding-top: 0px!important;
-}
+
 #wpadminbar{
-	position:relative;
+  background:#F1F1F1;
 }
-
-#wp-toolbar{
-	position:relative;
-	border-bottom: solid 1px #DDD;
-	margin-right:20px;
-
-	display:block;
-	height:32px;
-}
-#wpadminbar a{
-	color:#0074a2
-}
-#contextual-help-link-wrap{
-	margin-right:6px;
-
-}
-
-#adminmenu{
-	margin-top:0px;
-}
-
 #wpadminbar #media-upload a.del-link:hover,.subsubsub a.current:hover,.subsubsub a:hover,a:active,a:focus,a:hover,div.dashboard-widget-submit input:hover{
 	color:#0099d5
 }
@@ -39,19 +44,6 @@ body.admin-bar {
 
 #wpadminbar input[type=radio]:checked:before{
 	background:#04a4cc
-}
-
-#wpadminbar{
-	color:#333;
-	background:transparent!important;
-    z-index:1;
-
-    width:inherit!inherit;
-  margin-right: 20px!important;
-
-
-  right: 20px!important;
-
 }
 
 #wpadminbar .ab-item,#wpadminbar a.ab-item,#wpadminbar>#wp-toolbar span.ab-label,#wpadminbar>#wp-toolbar span.noticon{

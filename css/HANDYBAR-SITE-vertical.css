@@ -1,80 +1,92 @@
 
 @media screen and (min-width:782px){
 
-	html {
-	padding-top: 0px;
-	}
+html {
+padding-top: 0px!important;
+}
 
-	#wpadminbar{
-	position:fixed;
-	z-index:999;
-	width: 50px;
-	float: left;
-	display:inline-block;
-	min-width: inherit;
-	top:10px;
-	left: 10px;
-	overflow: hidden;
-	border-radius: 5px;
-	opacity: 1;
-	height:46px;
-	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
-	}
+#wpadminbar{
+position:fixed;
+color:#333;
+z-index:999;
+width: inherit;
+float: left;
+display:inline-block;
+min-width: inherit;
+top:10px;
+left: 10px;
+overflow: hidden;
+border-radius: 5px;
+opacity: 1;
+height:45px;
+box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+}
+#wpadminbar:hover{
+width: inherit;
+border-radius: 3px;
+overflow: visible;
+opacity: 1;
+	height:inherit;
+}
+.toolbar-topRight #wpadminbar{
+top:10px;
+left: inherit;
+right:10px;
+bottom: inherit;
+}
+.toolbar-bottomRight #wpadminbar{
+top:inherit;
+left: inherit;
+right:10px;
+bottom: 10px;
+}
+.toolbar-bottomLeft #wpadminbar{
+top:inherit;
+right:10px;
+right:inherit;
+bottom: 10px;
+}
 
-	#wpadminbar:hover{
-	width: inherit;
-	border-radius: 3px;
-	overflow: visible;
-	opacity: 1;
-	}
 
-	/*
-	*
-	* MENU POSITION
-	*
-	*/
-	.toolbar-topRight #wpadminbar{
-	top:10px;
-	left: inherit;
-	right:10px;
-	bottom: inherit;
-	}
-	.toolbar-bottomRight #wpadminbar{
-	top:inherit;
-	left: inherit;
-	right:10px;
-	bottom: 10px;
-	}
-	.toolbar-bottomLeft #wpadminbar{
-	top:inherit;
-	right:10px;
-	right:inherit;
-	bottom: 10px;
-	}
+#contextual-help-link-wrap{
+margin-right:6px;
+}
 
-	/*
-	*
-	* FORCE INLINE BAR
-	*
-	*/
-	#wpadminbar .ab-top-secondary,
-	#wp-admin-bar-root-default {
-	float: left;
-	width: inherit;
-	}
+#adminmenu{
+margin-top:0px;
+}
 
-	#wp-toolbar{
-	position:relative;
-	float: left;
-	display:inline-block;
-	width: inherit;
-	}
+.ab-top-menu li{
+	clear: left!important;
+}
+.ab-top-menu{
+	clear: left!important;
+}
 
-	/*
-	 *
-	 * FORCE MOBILE STYLE
-	 *
-	 */
+#wpadminbar .ab-top-secondary,
+#wp-admin-bar-root-default {
+float: left;
+width: inherit;
+}
+
+#wp-toolbar{
+position:relative;
+float: left;
+display:inline-block;
+
+width: inherit;
+}
+.screen-reader-shortcut{
+display:none;
+}
+
+
+
+
+
+
+
+
 	#wpadminbar *{
 		font:400 14px/32px "Open Sans",sans-serif
 	}
@@ -270,6 +282,14 @@
 		display:list-item
 	}
 
+	#wpadminbar .ab-top-menu>.menupop>.ab-sub-wrapper{
+		/*
+		min-width:-webkit-fit-content;
+		min-width:-moz-fit-content;
+		min-width:fit-content
+		*/
+	}
+
 	#wpadminbar ul#wp-admin-bar-root-default>li{
 		margin-right:0
 	}
@@ -291,6 +311,10 @@
 		left:0
 	}
 
+
+
+
+
 	#wp-responsive-overlay{
 		position:fixed;
 		top:0;
@@ -301,7 +325,15 @@
 	}
 
 	#wpadminbar .ab-top-menu>.menupop>.ab-sub-wrapper{
-		right: 0px;
+
+		position:absolute;
+		/*width:100%;*/
+		right:53px;
+		padding: 0px;
+		margin: 0px;
+		top: 0px;
+		min-height: 100%;
+
 	}
 
 	#wpadminbar .menupop .menupop>.ab-item:before{
@@ -313,10 +345,12 @@
 	}
 
 	#wpadminbar .ab-top-menu>.menupop li>.ab-sub-wrapper{
+		/*
 		margin:0;
 		width:100%;
 		top:auto;
 		left:auto
+		*/
 	}
 
 	#wpadminbar .ab-top-menu>.menupop li>.ab-sub-wrapper .ab-item{
@@ -340,13 +374,8 @@
 
 }
 
-/*
- *
- * FORCE LIGHT COLOR
- *
- */
 #wpadminbar{
-background:#F1F1F1;
+background-color:#F1F1F1;
 }
 
 #wpadminbar #media-upload a.del-link:hover,.subsubsub a.current:hover,.subsubsub a:hover,a:active,a:focus,a:hover,div.dashboard-widget-submit input:hover{
@@ -370,7 +399,7 @@ color:#999
 }
 
 #wpadminbar .ab-top-menu>li.hover>.ab-item,#wpadminbar .ab-top-menu>li.menupop.hover>.ab-item,#wpadminbar .ab-top-menu>li:hover>.ab-item,#wpadminbar .ab-top-menu>li>.ab-item:focus,#wpadminbar-nojs .ab-top-menu>li.menupop:hover>.ab-item,#wpadminbar.nojq .quicklinks .ab-top-menu>li>.ab-item:focus{
-background:#fff;
+background:#fff
 }
 
 #wpadminbar>#wp-toolbar a:focus span.ab-label,#wpadminbar>#wp-toolbar li.hover span.ab-label,#wpadminbar>#wp-toolbar li:hover span.ab-label{
