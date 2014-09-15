@@ -9,4 +9,4 @@ And a small overflow widget for the site view.
 
 ![HANDYBAR-SITE](screenshot1.png)
 
-in dev.
+currently in dev.
