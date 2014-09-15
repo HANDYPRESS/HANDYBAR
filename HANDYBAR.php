@@ -148,7 +148,11 @@ public function adminbar_site() {
 **/
 public function head_ob_start() {
 
-	ob_start( array( $this, 'add_personal_options' ) );
+  global $pagenow;
+
+  if ( $pagenow == 'profile.php' ){
+			ob_start( array( $this, 'add_personal_options' ) );
+	}
 
 }
 
@@ -161,59 +165,71 @@ public function head_ob_start() {
 **/
 public function add_personal_options( $subject ) {
 
-	global $current_user;
+	global $pagenow;
 
-	$subject = str_get_html($subject);
+	if ( isset($subject) && $pagenow == 'profile.php' ) {
 
-	$toolbar_tiny = get_user_meta( $current_user->ID, 'toolbar_tiny', true );
+		global $current_user;
 
-	$toolbar_pos = get_user_meta( $current_user->ID, 'toolbar_pos', true );
+		$subject = str_get_html($subject);
 
-	switch ($toolbar_pos) {
-		case 'topLeft':
-			$toolbar_pos_topLeft = 'checked';
-		break;
-		case 'topRight':
-			$toolbar_pos_topRight = "checked";
-		break;
-		case 'bottomLeft':
-			$toolbar_pos_bottomLeft = "checked";
-		break;
-		case 'bottomRight':
-			$toolbar_pos_bottomRight = "checked";
-		break;
-		default:
-			$toolbar_pos_default = "checked";
-		break;
-	}
+		$toolbar_tiny = get_user_meta( $current_user->ID, 'toolbar_tiny', true );
 
-	$row = '';
+		$toolbar_pos = get_user_meta( $current_user->ID, 'toolbar_pos', true );
 
-	$row .= '<tr>';
+		$toolbar_pos_topLeft = '';
+		$toolbar_pos_topRight = '';
+		$toolbar_pos_bottomLeft = '';
+		$toolbar_pos_bottomRight = '';
+		$toolbar_pos_default = '';
 
-		$row .= '<th scope="row">Toolbar Tiny</th>';
+		switch ($toolbar_pos) {
+			case 'topLeft':
+				$toolbar_pos_topLeft = 'checked';
+			break;
+			case 'topRight':
+				$toolbar_pos_topRight = "checked";
+			break;
+			case 'bottomLeft':
+				$toolbar_pos_bottomLeft = "checked";
+			break;
+			case 'bottomRight':
+				$toolbar_pos_bottomRight = "checked";
+			break;
+			default:
+				$toolbar_pos_default = "checked";
+			break;
+		}
+
+		$row = '';
+
+		$row .= '<tr>';
+
+			$row .= '<th scope="row">Toolbar Tiny</th>';
+
+				$row .= '<td>';
+					$row .= '<label for="toolbar_tiny"><input name="toolbar_tiny" id="toolbar_tiny" type="checkbox" '.$toolbar_tiny.'> Enable the tiny adminbar</label>';
+				$row .= '</td>';
+
+		$row .= '</tr>';
+
+		$row .= '<tr>';
+
+			$row .= '<th scope="row">Toolbar Position (frontend)</th>';
 
 			$row .= '<td>';
-				$row .= '<label for="toolbar_tiny"><input name="toolbar_tiny" id="toolbar_tiny" type="checkbox" '.$toolbar_tiny.'> Enable the tiny adminbar</label>';
+				$row .= '<input type="radio" name="toolbar_pos" value="default" '.$toolbar_pos_default.' style="margin-left:0px;">Default</input>';
+				$row .= '<input type="radio" name="toolbar_pos" value="topLeft" '.$toolbar_pos_topLeft.' style="margin-left:10px;">Top Left</input>';
+				$row .= '<input type="radio" name="toolbar_pos" value="topRight" '.$toolbar_pos_topRight.' style="margin-left:10px;">Top Right</input>';
+				//$row .= '<input type="radio" name="toolbar_pos" value="bottomLeft" '.$toolbar_pos_bottomLeft.' style="margin-left:10px;">Bottom Left</input>';
+				//$row .= '<input type="radio" name="toolbar_pos" value="bottomRight" '.$toolbar_pos_bottomRight.' style="margin-left:10px;">Bottom Right</input>';
 			$row .= '</td>';
 
-	$row .= '</tr>';
+		$row .= '</tr>';
 
-	$row .= '<tr>';
+		$subject->find('#admin_bar_front', 0)->parent->parent->parent->parent->innertext = $subject->find('#admin_bar_front', 0)->parent->parent->parent->parent->innertext . $row;
 
-		$row .= '<th scope="row">Toolbar Position (frontend)</th>';
-
-		$row .= '<td>';
-			$row .= '<input type="radio" name="toolbar_pos" value="default" '.$toolbar_pos_default.' style="margin-left:0px;">Default</input>';
-			$row .= '<input type="radio" name="toolbar_pos" value="topLeft" '.$toolbar_pos_topLeft.' style="margin-left:10px;">Top Left</input>';
-			$row .= '<input type="radio" name="toolbar_pos" value="topRight" '.$toolbar_pos_topRight.' style="margin-left:10px;">Top Right</input>';
-			//$row .= '<input type="radio" name="toolbar_pos" value="bottomLeft" '.$toolbar_pos_bottomLeft.' style="margin-left:10px;">Bottom Left</input>';
-			//$row .= '<input type="radio" name="toolbar_pos" value="bottomRight" '.$toolbar_pos_bottomRight.' style="margin-left:10px;">Bottom Right</input>';
-		$row .= '</td>';
-
-	$row .= '</tr>';
-
-	$subject->find('#admin_bar_front', 0)->parent->parent->parent->parent->innertext = $subject->find('#admin_bar_front', 0)->parent->parent->parent->parent->innertext . $row;
+	}
 
 	return $subject;
 
@@ -226,9 +242,13 @@ public function add_personal_options( $subject ) {
 * @desc
 *
 **/
-function footer_ob_end() {
+public function footer_ob_end() {
 
-	ob_end_flush();
+	global $pagenow;
+
+	if ( $pagenow == 'profile.php' ){
+		ob_end_flush();
+	}
 
 }
 
