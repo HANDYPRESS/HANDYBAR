@@ -82,39 +82,12 @@ function __construct() {
 
 /**
 *
-* INIT
-*
-* @desc Init
-*
-**/
-public function init(){
-
-}
-
-public function update_extra_profile_fields( $user_id ) {
-
-	if ( current_user_can('edit_user',$user_id) ){
-
-		if ( $_POST['toolbar_tiny'] ){
-			$toolbar_tiny = "checked";
-		}else{
-			$toolbar_tiny = "";
-		}
-
-  	update_user_meta( $user_id, 'toolbar_tiny', $toolbar_tiny );
-
-	}
-
-}
-
-/**
-*
 * body_class
 *
 * @desc remove front end body class 'admin-bar' to prevent extra admin bar style from theme (e.g. style.css)
 *
 **/
-public function body_class( $wp_classes, $extra_classes ) {
+public function body_class( $wp_classes ) {
 
 	global $current_user;
 
@@ -124,7 +97,7 @@ public function body_class( $wp_classes, $extra_classes ) {
 
 		unset( $wp_classes[$arr_id] );
 
-		$wp_classes[] = 'toolbar-' . get_user_meta($current_user->ID, 'toolbar_position',true);
+		$wp_classes[] = 'toolbar-' . get_user_meta($current_user->ID, 'toolbar_pos',true);
 
 	}
 
@@ -168,7 +141,20 @@ public function adminbar_site() {
 
 /**
 *
-* adminbar_site
+* head_ob_start
+*
+* @desc
+*
+**/
+public function head_ob_start() {
+
+	ob_start( array( $this, 'add_personal_options' ) );
+
+}
+
+/**
+*
+* add_personal_options
 *
 * @desc
 *
@@ -181,7 +167,51 @@ public function add_personal_options( $subject ) {
 
 	$toolbar_tiny = get_user_meta( $current_user->ID, 'toolbar_tiny', true );
 
-	$row = '<tr> <th scope="row">Tiny Toolbar</th> <td><label for="toolbar_tiny"><input name="toolbar_tiny" id="toolbar_tiny" type="checkbox" '.$toolbar_tiny.'> Enable the tiny adminbar</label></td> </tr>';
+	$toolbar_pos = get_user_meta( $current_user->ID, 'toolbar_pos', true );
+
+	switch ($toolbar_pos) {
+		case 'topLeft':
+			$toolbar_pos_topLeft = 'checked';
+		break;
+		case 'topRight':
+			$toolbar_pos_topRight = "checked";
+		break;
+		case 'bottomLeft':
+			$toolbar_pos_bottomLeft = "checked";
+		break;
+		case 'bottomRight':
+			$toolbar_pos_bottomRight = "checked";
+		break;
+		default:
+			$toolbar_pos_default = "checked";
+		break;
+	}
+
+	$row = '';
+
+	$row .= '<tr>';
+
+		$row .= '<th scope="row">Toolbar Tiny</th>';
+
+			$row .= '<td>';
+				$row .= '<label for="toolbar_tiny"><input name="toolbar_tiny" id="toolbar_tiny" type="checkbox" '.$toolbar_tiny.'> Enable the tiny adminbar</label>';
+			$row .= '</td>';
+
+	$row .= '</tr>';
+
+	$row .= '<tr>';
+
+		$row .= '<th scope="row">Toolbar Position (frontend)</th>';
+
+		$row .= '<td>';
+			$row .= '<input type="radio" name="toolbar_pos" value="default" '.$toolbar_pos_default.' style="margin-left:0px;">Default</input>';
+			$row .= '<input type="radio" name="toolbar_pos" value="topLeft" '.$toolbar_pos_topLeft.' style="margin-left:10px;">Top Left</input>';
+			$row .= '<input type="radio" name="toolbar_pos" value="topRight" '.$toolbar_pos_topRight.' style="margin-left:10px;">Top Right</input>';
+			$row .= '<input type="radio" name="toolbar_pos" value="bottomLeft" '.$toolbar_pos_bottomLeft.' style="margin-left:10px;">Bottom Left</input>';
+			$row .= '<input type="radio" name="toolbar_pos" value="bottomRight" '.$toolbar_pos_bottomRight.' style="margin-left:10px;">Bottom Right</input>';
+		$row .= '</td>';
+
+	$row .= '</tr>';
 
 	$subject->find('#admin_bar_front', 0)->parent->parent->parent->parent->innertext = $subject->find('#admin_bar_front', 0)->parent->parent->parent->parent->innertext . $row;
 
@@ -189,15 +219,41 @@ public function add_personal_options( $subject ) {
 
 }
 
-public function head_ob_start() {
-
-  ob_start( array( $this, 'add_personal_options' ) );
-
-}
-
+/**
+*
+* footer_ob_end
+*
+* @desc
+*
+**/
 function footer_ob_end() {
 
 	ob_end_flush();
+
+}
+
+/**
+*
+* update_extra_profile_fields
+*
+* @desc
+*
+**/
+public function update_extra_profile_fields( $user_id ) {
+
+	if ( current_user_can('edit_user',$user_id) ){
+
+		if ( $_POST['toolbar_tiny'] ){
+			$toolbar_tiny = "checked";
+		}else{
+			$toolbar_tiny = "";
+		}
+
+		update_user_meta( $user_id, 'toolbar_tiny', $toolbar_tiny );
+
+		update_user_meta( $user_id, 'toolbar_pos', $_POST['toolbar_pos'] );
+
+	}
 
 }
 
@@ -250,12 +306,13 @@ public function activate( $network_wide ) {
 public function update(){
 
 	global $current_user;
-	
-	$plugin_version = '0.1.0';
+
+	$plugin_version = '0.1.1';
 
 	if( get_option( 'HANDYBAR_plugin_version' ) !== $plugin_version ) {
 
 		add_user_meta( $current_user->ID, 'toolbar_tiny', "checked" );
+		add_user_meta( $current_user->ID, 'toolbar_pos', "checked" );
 
 		update_option( 'HANDYBAR_plugin_version', $plugin_version );
 
