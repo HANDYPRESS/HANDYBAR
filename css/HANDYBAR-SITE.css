@@ -7,7 +7,7 @@
 
 	#wpadminbar {
 	position:fixed;
-	z-index:999999999999;
+	z-index:999999999999!important;
 	width: 33px;
 	height:32px;
 	float: left;
