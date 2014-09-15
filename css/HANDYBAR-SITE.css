@@ -34,7 +34,7 @@
 		display:inline-block;
 		width: inherit;
 	}
-	
+
 	#wp-admin-bar-wp-logo{
 		display: none;
 	}
@@ -87,6 +87,7 @@
 	* MENU VERTICAL
 	*
 	*/
+	/*
 	#wpadminbar {
 	width: 34px;
 	height:34px;
@@ -161,7 +162,7 @@
 		padding: 0px!important;
 		box-shadow: -3px 1px 5px rgba(0, 0, 0, 0.2)!important;
 	}
-
+	*/
 
 	/*
 	 *

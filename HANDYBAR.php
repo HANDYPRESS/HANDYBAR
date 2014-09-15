@@ -207,8 +207,8 @@ public function add_personal_options( $subject ) {
 			$row .= '<input type="radio" name="toolbar_pos" value="default" '.$toolbar_pos_default.' style="margin-left:0px;">Default</input>';
 			$row .= '<input type="radio" name="toolbar_pos" value="topLeft" '.$toolbar_pos_topLeft.' style="margin-left:10px;">Top Left</input>';
 			$row .= '<input type="radio" name="toolbar_pos" value="topRight" '.$toolbar_pos_topRight.' style="margin-left:10px;">Top Right</input>';
-			$row .= '<input type="radio" name="toolbar_pos" value="bottomLeft" '.$toolbar_pos_bottomLeft.' style="margin-left:10px;">Bottom Left</input>';
-			$row .= '<input type="radio" name="toolbar_pos" value="bottomRight" '.$toolbar_pos_bottomRight.' style="margin-left:10px;">Bottom Right</input>';
+			//$row .= '<input type="radio" name="toolbar_pos" value="bottomLeft" '.$toolbar_pos_bottomLeft.' style="margin-left:10px;">Bottom Left</input>';
+			//$row .= '<input type="radio" name="toolbar_pos" value="bottomRight" '.$toolbar_pos_bottomRight.' style="margin-left:10px;">Bottom Right</input>';
 		$row .= '</td>';
 
 	$row .= '</tr>';
