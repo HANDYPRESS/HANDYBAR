@@ -1,4 +1,8 @@
 
+.wp-admin #wpadminbar #wp-admin-bar-site-name > .ab-item::before {
+    content: "";
+}
+
 @media screen and (min-width:782px){
 
   html.wp-toolbar,
@@ -50,7 +54,7 @@
 .wp-toolbar{
   background:#F1F1F1!important;
 }
-#wpadminbar #media-upload a.del-link:hover,.subsubsub a.current:hover,.subsubsub a:hover,a:active,a:focus,a:hover,div.dashboard-widget-submit input:hover{
+#wpadminbar #media-upload a.del-link:hover,#wpadminbar .subsubsub a.current:hover,#wpadminbar .subsubsub a:hover,#wpadminbar a:active,#wpadminbar a:focus,#wpadminbar a:hover,#wpadminbar div.dashboard-widget-submit input:hover{
 	color:#0099d5!important;
 }
 
